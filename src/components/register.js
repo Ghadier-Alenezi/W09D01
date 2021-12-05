@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -7,6 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("61a5fa9876f9a6e781a67319");
+  const navigate = useNavigate();
 
   const signUp = async () => {
     try {
@@ -20,6 +22,10 @@ const Register = () => {
       console.log(error);
     }
   };
+  const toLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       <h2>Please Register to use this app</h2>
@@ -51,7 +57,7 @@ const Register = () => {
       <hr />
       <br />
       <h3>Do you have an account already?</h3>
-      <button>Sign in here</button>
+      <button onClick={toLogin}>Sign in here</button>
     </>
   );
 };

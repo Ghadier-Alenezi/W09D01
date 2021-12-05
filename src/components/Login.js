@@ -34,7 +34,9 @@ const Login = () => {
       console.log(error);
     }
   };
-
+const toRegister = ()=>{
+  navigate("/register")
+}
   return (
     <>
       <h2>Please Login</h2>
@@ -63,6 +65,10 @@ const Login = () => {
       <hr />
       <br />
       <button onClick={login}> Sign in</button>
+      <hr />
+      <br />
+      <h3>You don't have account yet?</h3>
+      <button onClick={toRegister}>Sign Up Now</button>
     </>
   );
 };
