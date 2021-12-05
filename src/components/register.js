@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Register = () => {
@@ -14,6 +15,7 @@ const Register = () => {
         password,
         role,
       });
+      //   console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +48,10 @@ const Register = () => {
       <hr />
       <br />
       <button onClick={signUp}> Sign Up</button>
+      <hr />
+      <br />
+      <h3>Do you have an account already?</h3>
+      <button>Sign in here</button>
     </>
   );
 };
