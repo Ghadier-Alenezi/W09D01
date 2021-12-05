@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
+  const [role, setRole] = useState("61a5fa9876f9a6e781a67319");
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -16,14 +21,15 @@ const Login = () => {
         },
         {
           headers: {
-            Authorization: `Bearer` + token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      // console.log(result.data.token);
-      localStorage.setItem("token", result.data.token);
-      setToken(result.data.token);
-      // console.log(token);
+      if (result.data.token) {
+        setToken(result.data.token);
+        localStorage.setItem("token", token);
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -62,3 +68,9 @@ const Login = () => {
 };
 
 export default Login;
+
+// if (result.data.result.role === "61a5fa8e76f9a6e781a67317") {
+//   setRole("admin");
+// } else if (result.data.result.role === "61a5fa9876f9a6e781a67319") {
+//   setRole("user");
+// }
