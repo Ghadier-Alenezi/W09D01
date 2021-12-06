@@ -6,6 +6,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
+  const [editor, setEditor] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ const Home = () => {
     await axios.put(
       `${BASE_URL}/updateTask/${id}`,
       {
-        name: updateTask,
+        name: task,
       },
       {
         headers: {
@@ -55,6 +56,7 @@ const Home = () => {
         },
       }
     );
+    allTasks(token);
   };
 
   //   delete task by id
@@ -64,6 +66,7 @@ const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    allTasks(token);
   };
 
   //   log out user
@@ -72,7 +75,6 @@ const Home = () => {
     navigate("/login");
   };
 
-  //
   useEffect(() => {
     allTasks();
   }, []);
@@ -82,13 +84,35 @@ const Home = () => {
       <h2>Task Tracker </h2>
       <hr />
       <br />
-      {tasks.map((elem, i) => (
-        <ul>
-          <li key={i}>{elem.name}</li>
-          <button onClick={() => updateTask(elem._id)}>update</button>
-          <button onClick={() => deleteTask(elem._id)}>delete</button>
-        </ul>
-      ))}
+      <ul>
+        {tasks.map((elem, i) => (
+          <>
+            {editor ? (
+              <li>
+                <input
+                  defaultValue={elem.name}
+                  type="text"
+                  onChange={(e) => setTask(e.target.value)}
+                />
+                <button
+                  onClick={(e) => {
+                    updateTask(elem._id);
+                    setEditor(false);
+                  }}
+                >
+                  Done
+                </button>
+              </li>
+            ) : (
+              <li key={i}>
+                {elem.name}
+                <button onClick={() => setEditor(true)}>update</button>
+                <button onClick={() => deleteTask(elem._id)}>delete</button>
+              </li>
+            )}
+          </>
+        ))}
+      </ul>
       <input
         type="text"
         name="task"

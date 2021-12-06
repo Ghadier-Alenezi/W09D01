@@ -25,18 +25,21 @@ const Login = () => {
           },
         }
       );
-      if (result.data.token) {
-        setToken(result.data.token);
-        localStorage.setItem("token", token);
-        navigate("/");
-      }
+      // there is a problem here that the token dosen't set in localstorage the first time
+      // console.log(result.data.token);
+      setToken(result.data.token);
+      localStorage.setItem("token", token);
+      navigate("/user");
+
     } catch (error) {
       console.log(error);
     }
   };
-const toRegister = ()=>{
-  navigate("/register")
-}
+  // if the user does not have an account
+  const toRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <>
       <h2>Please Login</h2>
