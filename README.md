@@ -16,7 +16,7 @@ packages we use:
 > npx create-react-app
 
 * node.js
-![Node js docs](https://nodejs.org/en/)
+[a link](https://nodejs.org/en/)
 
 * NPM Dependencies: after having this project in your local machine
 > npm i
